@@ -15,6 +15,7 @@
 
         <!-- Set background color do dark grey -->
         <item name="android:windowBackground">@color/backgroundColor</item>
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
 </resources>
