@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ph.edu.dlsu.mobapde.copy_simon.GameActivity"
+    android:padding="10dp">
+
+
+    <TextView
+        android:id="@+id/tv_level"
+        android:text="Level #"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_margin="20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/tv_countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="8"
+        android:textSize="30sp"
+        android:layout_centerInParent="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/iv_green"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/green_game_button"/>
+            <ImageView
+                android:id="@+id/iv_red"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/red_game_button" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_yellow"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/yellow_game_button"/>
+            <ImageView
+                android:id="@+id/iv_blue"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/blue_game_button" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
