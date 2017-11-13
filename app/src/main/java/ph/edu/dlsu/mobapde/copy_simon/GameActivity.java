@@ -1,5 +1,7 @@
 package ph.edu.dlsu.mobapde.copy_simon;
 
+import android.content.DialogInterface;
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -21,5 +23,44 @@ public class GameActivity extends AppCompatActivity {
         ivRed = findViewById(R.id.iv_red);
         ivYellow = findViewById(R.id.iv_yellow);
         ivBlue = findViewById(R.id.iv_blue);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.LightDialogTheme);
+            //builder.setCancelable(false);
+            builder.setMessage("Do you want to Exit?");
+            final AlertDialog alert = builder.create();
+            /*
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //if user pressed "yes", then he is allowed to exit from application
+                    finish();
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //if user select "No", just cancel this dialog and continue with app
+                    dialog.cancel();
+                }
+            });
+            AlertDialog alert = builder.create();*/
+            alert.setButton(DialogInterface.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            alert.setButton(DialogInterface.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    alert.dismiss();
+                }
+            });
+            alert.show();
+
     }
 }
