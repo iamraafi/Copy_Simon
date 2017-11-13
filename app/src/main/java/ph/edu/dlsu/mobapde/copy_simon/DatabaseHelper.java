@@ -81,7 +81,17 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         cleanup();
         return id;
     }
-
+    public int getHighest(){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT Max("+Score.COLUMN_POINTS+")'max' FROM "+Score.TABLE_NAME,null);
+        int s=0 ;
+        if(c.moveToFirst()){
+            s = c.getInt(c.getColumnIndex("max"));
+        }
+        c.close();
+        db.close();
+        return s;
+    }
     public Score getScore(long id){
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(Score.TABLE_NAME,

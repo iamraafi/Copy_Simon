@@ -1,5 +1,7 @@
 package ph.edu.dlsu.mobapde.copy_simon;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,13 +15,14 @@ public class HighScoreActivity extends AppCompatActivity {
     RecyclerView rvScore;
     DatabaseHelper dbhelper;
     ScoreAdapter sa;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_high_score);
-        rvScore=(RecyclerView) findViewById(R.id.rvscore);
-        dbhelper = new DatabaseHelper(getBaseContext());
-
+    public static boolean INITIALIZED=false;
+    private void intialize(DatabaseHelper db){
+        SharedPreferences shp=
+                PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences.Editor e =shp.edit();
+        String in=shp.getString("initialized",null);
+        if(in!=null)
+            return;
         dbhelper.addScore(new Score("Tom",100));
         dbhelper.addScore(new Score("Jake",90));
         dbhelper.addScore(new Score("Hassan",80));
@@ -41,6 +44,16 @@ public class HighScoreActivity extends AppCompatActivity {
         dbhelper.addScore(new Score("Hansel",90));
         dbhelper.addScore(new Score("Urich",20));
         dbhelper.addScore(new Score("Thomson",15));
+        e.putString("initialized","yes");
+        e.commit();
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_high_score);
+        rvScore=(RecyclerView) findViewById(R.id.rvscore);
+        dbhelper = new DatabaseHelper(getBaseContext());
+        intialize(dbhelper);
         Log.d("Count of scores", " value of "+dbhelper.getCount());
         sa=new ScoreAdapter(getBaseContext(),
                 dbhelper.getAllScoresCursor());
