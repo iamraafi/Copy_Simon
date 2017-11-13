@@ -30,6 +30,17 @@ public class HighScoreActivity extends AppCompatActivity {
         dbhelper.addScore(new Score("Juan",30));
         dbhelper.addScore(new Score("Samael",20));
         dbhelper.addScore(new Score("Jamal",15));
+
+        dbhelper.addScore(new Score("Samantha",150));
+        dbhelper.addScore(new Score("Jason",90));
+        dbhelper.addScore(new Score("Ahmed",110));
+        dbhelper.addScore(new Score("Leon",100));
+        dbhelper.addScore(new Score("Carlo",50));
+        dbhelper.addScore(new Score("Vincent",100));
+        dbhelper.addScore(new Score("Tomas",60));
+        dbhelper.addScore(new Score("Hansel",90));
+        dbhelper.addScore(new Score("Urich",20));
+        dbhelper.addScore(new Score("Thomson",15));
         Log.d("Count of scores", " value of "+dbhelper.getCount());
         sa=new ScoreAdapter(getBaseContext(),
                 dbhelper.getAllScoresCursor());

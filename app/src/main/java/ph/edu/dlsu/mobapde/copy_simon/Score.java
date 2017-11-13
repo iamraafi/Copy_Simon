@@ -13,6 +13,7 @@ public class Score {
     public static final String COLUMN_NAME="name";
     public static final String COLUMN_POINTS="points";
 
+    private int id;
     private int points;
     private String name;
 
@@ -28,5 +29,10 @@ public class Score {
         this.points=points;
         this.name=name;
     }
-
+    public void setId(int id){
+        this.id=id;
+    }
+    public int getId(){
+        return id;
+    }
 }

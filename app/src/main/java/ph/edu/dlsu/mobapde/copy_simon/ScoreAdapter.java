@@ -52,7 +52,7 @@ public class ScoreAdapter extends CursorRecyclerViewAdapter<ScoreAdapter.ScoreVi
                 //holder.tvTeacher.setBackgroundColor(Color.parseColor(color));
         }
 
- 
+
 
         // "holds" the views
         // put the things that you want to see in each "item" here, like picture and name for contact
