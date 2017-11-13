@@ -23,55 +23,70 @@
         />
 
     <Button
-        android:layout_width="wrap_content"
+        android:id="@+id/button_classic"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="CLASSIC"
+        android:text="Classic"
         android:textSize="30sp"
         android:layout_gravity="center"
         android:background="@drawable/blue_button"
+        android:contentDescription="Play classic mode"
         />
 
     <Button
-        android:layout_width="wrap_content"
+        android:id="@+id/button_speed_mode"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="CLASSIC"
+        android:text="Speed Mode"
         android:textSize="30sp"
         android:layout_gravity="center"
         android:background="@drawable/green_button"
+        android:contentDescription="Play speed mode"
         />
 
 
     <Button
-        android:layout_width="wrap_content"
+        android:id="@+id/button_coop"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="CLASSIC"
+        android:text="CO-OP"
         android:textSize="30sp"
         android:layout_gravity="center"
         android:background="@drawable/red_button"
+        android:contentDescription="Play co-op mode"
         />
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp">
 
         <ImageView
+            android:id="@+id/iv_highscores"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:src="@drawable/highscores_button"
-            android:layout_marginRight="80dp"
+            android:contentDescription="High scores"
+            android:layout_alignParentStart="true"
             />
         <ImageView
+            android:id="@+id/iv_help"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:src="@drawable/help_button"
-            android:layout_marginRight="80dp"
+            android:contentDescription="Help"
+            android:layout_centerInParent="true"
             />
         <ImageView
+            android:id="@+id/iv_settings"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:src="@drawable/sound_button"
+            android:contentDescription="Settings"
+            android:layout_alignParentEnd="true"
             />
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

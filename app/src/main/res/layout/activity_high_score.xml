@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ph.edu.dlsu.mobapde.copy_simon.HighScoreActivity"
-    android:weightSum="10">
+    tools:context="ph.edu.dlsu.mobapde.copy_simon.InstructionsActivity"
+    android:orientation="vertical"
+    android:padding="10dp">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0sp"
+        android:layout_height="0dp"
         android:layout_weight="2"
         android:text="High Score"
         android:textAlignment="center"
@@ -18,7 +17,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvscore"
         android:layout_width="match_parent"
-        android:layout_height="0sp"
+        android:layout_height="0dp"
         android:layout_weight="8">
     </android.support.v7.widget.RecyclerView>
 
