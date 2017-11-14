@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,9 +22,25 @@ public class GameActivity extends AppCompatActivity {
         tvLevel = findViewById(R.id.tv_level);
         tvCountdown = findViewById(R.id.tv_countdown);
         ivGreen = findViewById(R.id.iv_green);
+
         ivRed = findViewById(R.id.iv_red);
+
         ivYellow = findViewById(R.id.iv_yellow);
+
         ivBlue = findViewById(R.id.iv_blue);
+        /*
+        ivBlue.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    ivBlue.setBackgroundResource(R.drawable.blue_lit_game_button);
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    ivBlue.setBackgroundResource(R.drawable.blue_game_button);
+                    //  *******start Intent here********
+                }
+                return false;
+            }
+        });*/
     }
 
     @Override

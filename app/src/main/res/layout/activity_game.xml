@@ -34,16 +34,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
-            <ImageView
+            <ImageButton
                 android:id="@+id/iv_green"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/green_game_button"/>
-            <ImageView
+                android:background="@drawable/green_button_selector" />
+            <ImageButton
                 android:id="@+id/iv_red"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/red_game_button" />
+                android:background="@drawable/red_button_selector" />
         </LinearLayout>
 
         <LinearLayout
@@ -51,16 +51,16 @@
             android:layout_height="wrap_content"
             android:gravity="center">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/iv_yellow"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/yellow_game_button"/>
-            <ImageView
+                android:background="@drawable/yellow_button_selector"/>
+            <ImageButton
                 android:id="@+id/iv_blue"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/blue_game_button" />
+                android:background="@drawable/blue_button_selector" />
 
         </LinearLayout>
     </LinearLayout>
