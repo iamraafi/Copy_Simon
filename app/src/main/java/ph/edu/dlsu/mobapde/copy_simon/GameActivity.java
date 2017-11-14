@@ -123,18 +123,24 @@ public class GameActivity extends AppCompatActivity {
 
                 // (at the start of each round)
                     // generate new key and add to list
-                        for (int i=0; i<10; i++){
+                        // place holder
+                        keyPatterns.add(5);
+                        for (int i=0; i<1; i++){
                             newKey = random.nextInt(4)+1;
                             keyPatterns.add(newKey);
                         }
+
                         Log.i("playGame", "generated new key");
                     // set level # to size of list of keys
-                        tvLevel.setText("Level " + String.valueOf(keyPatterns.size()));
+                        int level = keyPatterns.size()-1;
+                        tvLevel.setText("Level " + level);
                         tvLevel.invalidate();
 
                         Log.i("playGame", "set level");
+
                     //set remaining keys to size of list of keys
-                        tvCountdown.setText(String.valueOf(keyPatterns.size()));
+                        remainingKeys = level;
+                        tvCountdown.setText(String.valueOf(remainingKeys));
                         tvCountdown.invalidate();
                         Log.i("playGame", "set initial keys");
 
@@ -212,6 +218,8 @@ public class GameActivity extends AppCompatActivity {
                     }
                 }
             }
+
+            publishProgress(delayArray[0]);
             return null;
         }
 
