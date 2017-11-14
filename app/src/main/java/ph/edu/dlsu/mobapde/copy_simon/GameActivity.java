@@ -3,22 +3,15 @@ package ph.edu.dlsu.mobapde.copy_simon;
 import android.content.DialogInterface;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -32,6 +25,7 @@ public class GameActivity extends AppCompatActivity {
     Random random = new Random();
     ImageButton ivGreen, ivRed, ivYellow, ivBlue;
     Boolean playerLost;
+    MediaPlayer g1, c2, e2, g2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +41,11 @@ public class GameActivity extends AppCompatActivity {
         ivRed = findViewById(R.id.iv_red);
         ivYellow = findViewById(R.id.iv_yellow);
         ivBlue = findViewById(R.id.iv_blue);
+
+        g1 = MediaPlayer.create(this, R.raw.g1);
+        c2 = MediaPlayer.create(this, R.raw.c2);
+        e2 = MediaPlayer.create(this, R.raw.e2);
+        g2 = MediaPlayer.create(this, R.raw.g2);
 
         playerLost = false;
 
@@ -72,6 +71,7 @@ public class GameActivity extends AppCompatActivity {
         ivGreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                g1.start();
                 if (gameMode.equals("speed"))
                     ct.cancel();
                 if(Key_Pattern.get(LevelCount+1)==1){
@@ -96,6 +96,7 @@ public class GameActivity extends AppCompatActivity {
         ivRed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                c2.start();
                 if (gameMode.equals("speed"))
                     ct.cancel();
                 if(Key_Pattern.get(LevelCount+1)==2){
@@ -121,6 +122,7 @@ public class GameActivity extends AppCompatActivity {
         ivYellow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                e2.start();
                 if (gameMode.equals("speed"))
                     ct.cancel();
                 if(Key_Pattern.get(LevelCount+1)==3){
@@ -146,6 +148,7 @@ public class GameActivity extends AppCompatActivity {
         ivBlue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                g2.start();
                 if (gameMode.equals("speed"))
                     ct.cancel();
                 if(Key_Pattern.get(LevelCount+1)==4){
@@ -415,10 +418,10 @@ public class GameActivity extends AppCompatActivity {
 
 
             switch (values[0]){
-                case 1: ivGreen.setBackground(getDrawable(R.drawable.green_lit_game_button)); break;
-                case 2: ivRed.setBackground(getDrawable(R.drawable.red_lit_game_button)); break;
-                case 3: ivYellow.setBackground(getDrawable(R.drawable.yellow_lit_game_button)); break;
-                case 4: ivBlue.setBackground(getDrawable(R.drawable.blue_lit_game_button)); break;
+                case 1: ivGreen.setBackground(getDrawable(R.drawable.green_lit_game_button)); g1.start(); break;
+                case 2: ivRed.setBackground(getDrawable(R.drawable.red_lit_game_button)); c2.start(); break;
+                case 3: ivYellow.setBackground(getDrawable(R.drawable.yellow_lit_game_button)); e2.start(); break;
+                case 4: ivBlue.setBackground(getDrawable(R.drawable.blue_lit_game_button)); g2.start(); break;
 
                 case 5: ivGreen.setBackground(getDrawable(R.drawable.green_game_button));
                         ivRed.setBackground(getDrawable(R.drawable.red_game_button));
