@@ -22,7 +22,11 @@ public class PostGameActivity extends AppCompatActivity {
         ivHighScores = findViewById(R.id.iv_highscores);
         ivPlay = findViewById(R.id.iv_play);
         ivHome = findViewById(R.id.iv_home);
-
+        DatabaseHelper dbhelper=new DatabaseHelper(getBaseContext());
+        Intent i = getIntent();
+        int score = i.getExtras().getInt("Score");
+        tvScore.setText(""+score);
+        tvHighest.setText(""+dbhelper.getHighest());
         ivHighScores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
