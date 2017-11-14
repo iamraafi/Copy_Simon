@@ -183,18 +183,33 @@ public class GameActivity extends AppCompatActivity {
     public class PatternTask extends AsyncTask<Integer, Integer, Void> {
 
         int i = 0;
-        Integer[] pattern;
+        boolean delayCheck = false;
+        Integer[] pattern, delayArray;
 
         @Override
         protected Void doInBackground(Integer... integers) {
             pattern = integers;
+            delayArray = new Integer[1];
+            delayArray[0] = 5;
             while (i<pattern.length-1){
-                i++;
-                publishProgress(pattern[i]);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                if(!delayCheck){
+                    i++;
+                    delayCheck = true;
+                    publishProgress(pattern[i]);
+                    try {
+                        Thread.sleep(600);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    publishProgress(delayArray[0]);
+                    delayCheck = false;
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             return null;
@@ -204,17 +219,20 @@ public class GameActivity extends AppCompatActivity {
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
 
-            ivGreen.setBackground(getDrawable(R.drawable.green_game_button));
-            ivRed.setBackground(getDrawable(R.drawable.red_game_button));
-            ivYellow.setBackground(getDrawable(R.drawable.yellow_game_button));
-            ivBlue.setBackground(getDrawable(R.drawable.blue_game_button));
 
             switch (values[0]){
                 case 1: ivGreen.setBackground(getDrawable(R.drawable.green_lit_game_button)); break;
                 case 2: ivRed.setBackground(getDrawable(R.drawable.red_lit_game_button)); break;
                 case 3: ivYellow.setBackground(getDrawable(R.drawable.yellow_lit_game_button)); break;
                 case 4: ivBlue.setBackground(getDrawable(R.drawable.blue_lit_game_button)); break;
+
+                case 5: ivGreen.setBackground(getDrawable(R.drawable.green_game_button));
+                        ivRed.setBackground(getDrawable(R.drawable.red_game_button));
+                        ivYellow.setBackground(getDrawable(R.drawable.yellow_game_button));
+                        ivBlue.setBackground(getDrawable(R.drawable.blue_game_button));
+                        break;
             }
+
         }
 
 
