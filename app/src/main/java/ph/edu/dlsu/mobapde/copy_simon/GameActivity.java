@@ -6,13 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class GameActivity extends AppCompatActivity {
 
     TextView tvLevel, tvCountdown;
-    ImageView ivGreen, ivRed, ivYellow, ivBlue;
+    ImageButton ivGreen, ivRed, ivYellow, ivBlue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class GameActivity extends AppCompatActivity {
         ivYellow = findViewById(R.id.iv_yellow);
 
         ivBlue = findViewById(R.id.iv_blue);
+
         /*
         ivBlue.setOnTouchListener(new View.OnTouchListener() {
             @Override
