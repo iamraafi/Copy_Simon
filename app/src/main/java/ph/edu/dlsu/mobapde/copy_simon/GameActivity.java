@@ -99,20 +99,10 @@ public class GameActivity extends AppCompatActivity {
         gameButtons.add(ivRed);
         gameButtons.add(ivYellow);
         gameButtons.add(ivBlue);
-        ImageButton holderButton;
-        //Handler handler = new Handler();
 
         Log.i("playGame", "initialized variables");
 
         playerLost = false;
-
-        //animation definition
-        Animation buttonBlink = new AlphaAnimation(1,0);
-        buttonBlink.setDuration(500);
-        buttonBlink.setInterpolator(new LinearInterpolator());
-        buttonBlink.setRepeatCount(1);
-        buttonBlink.setRepeatMode(Animation.REVERSE);
-
 
         // green == 1, red == 2, yellow == 3, blue == 4
         switch (gameMode){
@@ -144,24 +134,9 @@ public class GameActivity extends AppCompatActivity {
                         tvCountdown.invalidate();
                         Log.i("playGame", "set initial keys");
 
-                    // disable clicking of buttons
-                        for (int i=0; i<gameButtons.size(); i ++){
-                            gameButtons.get(i).setClickable(true); // TODO: Change to false
-                        }
-                        Log.i("playGame", "set unclickable");
-
-
                     // TODO: animate the pattern
                         Integer[] keyIntArray = keyPatterns.toArray(new Integer[keyPatterns.size()]);
                         new PatternTask().execute(keyIntArray);
-
-
-                    // TODO: re-enable clicking of buttons
-
-                        for (int i=0; i<gameButtons.size(); i ++){
-                            gameButtons.get(i).setClickable(true);
-                        }
-                        Log.i("playGame", "set clickable");
 
                     // TODO: if user pressed wrong button: lose
                         if(true){
@@ -186,11 +161,22 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    // Used to animate the defined pattern
     public class PatternTask extends AsyncTask<Integer, Integer, Void> {
 
         int i = 0;
         boolean delayCheck = false;
         Integer[] pattern, delayArray;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            ivGreen.setClickable(false);
+            ivRed.setClickable(false);
+            ivYellow.setClickable(false);
+            ivBlue.setClickable(false);
+            Log.i("playGame", "set unclickable");
+        }
 
         @Override
         protected Void doInBackground(Integer... integers) {
@@ -243,7 +229,20 @@ public class GameActivity extends AppCompatActivity {
 
         }
 
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            ivGreen.setBackground(getDrawable(R.drawable.green_button_selector));
+            ivRed.setBackground(getDrawable(R.drawable.red_button_selector));
+            ivYellow.setBackground(getDrawable(R.drawable.yellow_button_selector));
+            ivBlue.setBackground(getDrawable(R.drawable.blue_button_selector));
 
+            ivGreen.setClickable(true);
+            ivRed.setClickable(true);
+            ivYellow.setClickable(true);
+            ivBlue.setClickable(true);
+            Log.i("playGame", "set clickable");
+        }
     }
 
     @Override
