@@ -39,12 +39,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        buttonSpeedMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), GameActivity.class);
+                intent.putExtra(GAME_MODE, SPEED_MODE);
+
+                startActivity(intent);
+            }
+        });
 
         // view High scores
         ivHighScores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), HighScoreActivity.class);
+
                 startActivity(intent);
             }
         });

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
+    CountDownTimer ct;
+    String gameMode;
     ArrayList<Integer> Key_Pattern=new ArrayList<>();
     int totalCount=0,LevelCount=0;
     TextView tvLevel, tvCountdown;
@@ -48,8 +51,8 @@ public class GameActivity extends AppCompatActivity {
         playerLost = false;
 
         // TODO: get intent for game mode
-        final Intent gameIntent = getIntent();
-        final String gameMode = gameIntent.getExtras().getString(MainActivity.GAME_MODE);
+        Intent gameIntent = getIntent();
+        gameMode = gameIntent.getExtras().getString(MainActivity.GAME_MODE);
 
         /*
         ivBlue.setOnTouchListener(new View.OnTouchListener() {
@@ -69,6 +72,8 @@ public class GameActivity extends AppCompatActivity {
         ivGreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (gameMode.equals("speed"))
+                    ct.cancel();
                 if(Key_Pattern.get(LevelCount+1)==1){
                     Log.i("playGame", "Green button selected");
                     LevelCount++;
@@ -76,6 +81,8 @@ public class GameActivity extends AppCompatActivity {
                     tvCountdown.invalidate();
                     if((LevelCount+1)==Key_Pattern.size())
                         levelup();
+                    else if (gameMode.equals("speed"))
+                        ct.start();
                 }else{
                     Log.i("playGame", "Green button fail");
                     Intent intent = new Intent(getBaseContext(), PostGameActivity.class);
@@ -89,6 +96,8 @@ public class GameActivity extends AppCompatActivity {
         ivRed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (gameMode.equals("speed"))
+                    ct.cancel();
                 if(Key_Pattern.get(LevelCount+1)==2){
                     Log.i("playGame", "Red button selected");
                     LevelCount++;
@@ -96,6 +105,9 @@ public class GameActivity extends AppCompatActivity {
                     tvCountdown.invalidate();
                     if((LevelCount+1)==Key_Pattern.size())
                         levelup();
+                    else if (gameMode.equals("speed"))
+                        ct.start();
+
                 }else{
                     Log.i("playGame", "Red button fail");
                     Intent intent = new Intent(getBaseContext(), PostGameActivity.class);
@@ -109,6 +121,8 @@ public class GameActivity extends AppCompatActivity {
         ivYellow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (gameMode.equals("speed"))
+                    ct.cancel();
                 if(Key_Pattern.get(LevelCount+1)==3){
                     Log.i("playGame", "Yellow button selected");
                     LevelCount++;
@@ -116,6 +130,8 @@ public class GameActivity extends AppCompatActivity {
                     tvCountdown.invalidate();
                     if((LevelCount+1)==Key_Pattern.size())
                         levelup();
+                    else if (gameMode.equals("speed"))
+                        ct.start();
                 }else{
                     Log.i("playGame", "Yellow button fail");
                     Intent intent = new Intent(getBaseContext(), PostGameActivity.class);
@@ -130,6 +146,8 @@ public class GameActivity extends AppCompatActivity {
         ivBlue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (gameMode.equals("speed"))
+                    ct.cancel();
                 if(Key_Pattern.get(LevelCount+1)==4){
                     Log.i("playGame", "Blue button selected");
                     LevelCount++;
@@ -138,6 +156,8 @@ public class GameActivity extends AppCompatActivity {
                     tvCountdown.invalidate();
                     if((LevelCount+1)==Key_Pattern.size())
                         levelup();
+                    else if (gameMode.equals("speed"))
+                        ct.start();
                 }else{
                     Log.i("playGame", "Blue button fail");
                     Intent intent = new Intent(getBaseContext(), PostGameActivity.class);
@@ -166,6 +186,89 @@ public class GameActivity extends AppCompatActivity {
             }
         });
     }
+    public void setTimer(int level){
+        if(level<=4){
+            ct=new CountDownTimer(3000,1000) {
+                @Override
+                public void onTick(long l) {
+                    Log.i("playGame", "C Timer"+l);
+                }
+
+                @Override
+                public void onFinish() {
+                    Log.i("playGame", "C Timer Finished");
+                    Intent intent = new Intent(getBaseContext(), PostGameActivity.class);
+                    intent.putExtra("Score",(totalCount+LevelCount));
+                    startActivity(intent);
+                    finish();
+                }
+            };
+        }else if (level<=8){
+            ct=new CountDownTimer(2000,1000) {
+                @Override
+                public void onTick(long l) {
+                    Log.i("playGame", "C Timer"+l);
+                }
+
+                @Override
+                public void onFinish() {
+                    Log.i("playGame", "C Timer Finished");
+                    Intent intent = new Intent(getBaseContext(), PostGameActivity.class);
+                    intent.putExtra("Score",(totalCount+LevelCount));
+                    startActivity(intent);
+                    finish();
+                }
+            };
+        }else if(level<=11){
+            ct=new CountDownTimer(1000,1000) {
+                @Override
+                public void onTick(long l) {
+                    Log.i("playGame", "C Timer"+l);
+                }
+
+                @Override
+                public void onFinish() {
+                    Log.i("playGame", "C Timer Finished");
+                    Intent intent = new Intent(getBaseContext(), PostGameActivity.class);
+                    intent.putExtra("Score",(totalCount+LevelCount));
+                    startActivity(intent);
+                    finish();
+                }
+            };
+        }else if(level<=14){
+            ct=new CountDownTimer(500,1000) {
+                @Override
+                public void onTick(long l) {
+                    Log.i("playGame", "C Timer"+l);
+                }
+
+                @Override
+                public void onFinish() {
+                    Log.i("playGame", "C Timer Finished");
+                    Intent intent = new Intent(getBaseContext(), PostGameActivity.class);
+                    intent.putExtra("Score",(totalCount+LevelCount));
+                    startActivity(intent);
+                    finish();
+                }
+            };
+        }else{
+            ct=new CountDownTimer(200,1000) {
+                @Override
+                public void onTick(long l) {
+                    Log.i("playGame", "C Timer"+l);
+                }
+
+                @Override
+                public void onFinish() {
+                    Log.i("playGame", "C Timer Finished");
+                    Intent intent = new Intent(getBaseContext(), PostGameActivity.class);
+                    intent.putExtra("Score",(totalCount+LevelCount));
+                    startActivity(intent);
+                    finish();
+                }
+            };
+        }
+    }
     public void levelup(){
         totalCount+=LevelCount;
         int newkey=random.nextInt(4)+1;
@@ -176,6 +279,8 @@ public class GameActivity extends AppCompatActivity {
         tvCountdown.setText(String.valueOf(level));
         tvCountdown.invalidate();
         LevelCount=0;
+        if(gameMode.equals("speed"))
+            setTimer(level);
         Integer[] keyIntArray = Key_Pattern.toArray(new Integer[Key_Pattern.size()]);
         new PatternTask().execute(keyIntArray);
     }
@@ -337,6 +442,7 @@ public class GameActivity extends AppCompatActivity {
             ivYellow.setClickable(true);
             ivBlue.setClickable(true);
             Log.i("playGame", "set clickable");
+            if (gameMode.equals("speed")) ct.start();
         }
     }
 
