@@ -23,8 +23,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
-
+    ArrayList<Integer> Key_Pattern=new ArrayList<>();
+    int totalCount=0,LevelCount=0;
     TextView tvLevel, tvCountdown;
+    Random random = new Random();
     ImageButton ivGreen, ivRed, ivYellow, ivBlue;
     Boolean playerLost;
 
@@ -64,21 +66,106 @@ public class GameActivity extends AppCompatActivity {
         });*/
 
         // call playGame and pass the gameMode
+        ivGreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Key_Pattern.get(LevelCount+1)==1){
+                    Log.i("playGame", "Green button selected");
+                    LevelCount++;
+                    tvCountdown.setText(""+(Key_Pattern.size()-(LevelCount+1)));
+                    tvCountdown.invalidate();
+                    if((LevelCount+1)==Key_Pattern.size())
+                        levelup();
+                }else{
+                    Log.i("playGame", "Green button fail");
+
+                }
+            }
+        });
+
+        ivRed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Key_Pattern.get(LevelCount+1)==2){
+                    Log.i("playGame", "Red button selected");
+                    LevelCount++;
+                    tvCountdown.setText(""+(Key_Pattern.size()-(LevelCount+1)));
+                    tvCountdown.invalidate();
+                    if((LevelCount+1)==Key_Pattern.size())
+                        levelup();
+                }else{
+                    Log.i("playGame", "Red button fail");
+                }
+            }
+        });
+
+        ivYellow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Key_Pattern.get(LevelCount+1)==3){
+                    Log.i("playGame", "Yellow button selected");
+                    LevelCount++;
+                    tvCountdown.setText(""+(Key_Pattern.size()-(LevelCount+1)));
+                    tvCountdown.invalidate();
+                    if((LevelCount+1)==Key_Pattern.size())
+                        levelup();
+                }else{
+                    Log.i("playGame", "Yellow button fail");
+
+                }
+            }
+        });
+
+        ivBlue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Key_Pattern.get(LevelCount+1)==4){
+                    Log.i("playGame", "Blue button selected");
+                    LevelCount++;
+
+                    tvCountdown.setText(""+(Key_Pattern.size()-(LevelCount+1)));
+                    tvCountdown.invalidate();
+                    if((LevelCount+1)==Key_Pattern.size())
+                        levelup();
+                }else{
+                    Log.i("playGame", "Blue button fail");
+
+                }
+            }
+        });
+
 
         ivGreen.setClickable(false);
         ivRed.setClickable(false);
         ivYellow.setClickable(false);
         ivBlue.setClickable(false);
 
+        Key_Pattern.add(5);
+
         tvCountdown.setText("Start");
         tvCountdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                playGame(gameMode);
+                //playGame(gameMode);
+                levelup();
             }
         });
     }
+    public void levelup(){
+        totalCount+=LevelCount;
+        int newkey=random.nextInt(4)+1;
+        Key_Pattern.add(newkey);
+        int level = Key_Pattern.size()-1;
+        tvLevel.setText("Level " + level);
+        tvLevel.invalidate();
+        tvCountdown.setText(String.valueOf(level));
+        tvCountdown.invalidate();
+        LevelCount=0;
+        Integer[] keyIntArray = Key_Pattern.toArray(new Integer[Key_Pattern.size()]);
+        new PatternTask().execute(keyIntArray);
+    }
 
+    /*
     public void playGame(String gameMode){
 
         SystemClock.sleep(1000);
@@ -141,7 +228,7 @@ public class GameActivity extends AppCompatActivity {
             /*case MainActivity.SPEED_MODE:
                 break;*/
             /*case MainActivity.COOP_MODE:
-                break;*/
+                break;
             default:
                 // invalid/unreleased game mode; notify and return to main activity
                 Log.i("playGame", "invalid/unreleased game mode");
@@ -152,7 +239,7 @@ public class GameActivity extends AppCompatActivity {
                 finish();
                 break;
         }
-    }
+    }*/
 
     // Used to animate the defined pattern
     public class PatternTask extends AsyncTask<Integer, Integer, Void> {
