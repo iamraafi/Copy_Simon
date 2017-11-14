@@ -74,15 +74,9 @@ public class GameActivity extends AppCompatActivity {
         tvCountdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                trial(gameMode);
-                // playGame(gameMode);
+                playGame(gameMode);
             }
         });
-    }
-
-    public void trial(String gameMode){
-        tvLevel.setText("Level 1");
-        playGame(gameMode);
     }
 
     public void playGame(String gameMode){
@@ -119,13 +113,12 @@ public class GameActivity extends AppCompatActivity {
                             newKey = random.nextInt(4)+1;
                             keyPatterns.add(newKey);
                         }
-
                         Log.i("playGame", "generated new key");
+
                     // set level # to size of list of keys
                         int level = keyPatterns.size()-1;
                         tvLevel.setText("Level " + level);
                         tvLevel.invalidate();
-
                         Log.i("playGame", "set level");
 
                     //set remaining keys to size of list of keys
