@@ -3,6 +3,7 @@ package ph.edu.dlsu.mobapde.copy_simon;
 import android.content.DialogInterface;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -73,12 +74,20 @@ public class GameActivity extends AppCompatActivity {
         tvCountdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                playGame(gameMode);
+                trial(gameMode);
+                // playGame(gameMode);
             }
         });
     }
 
+    public void trial(String gameMode){
+        tvLevel.setText("Level 1");
+        playGame(gameMode);
+    }
+
     public void playGame(String gameMode){
+
+        SystemClock.sleep(1000);
 
         Log.i("playGame", "entered playGame");
 
@@ -115,32 +124,31 @@ public class GameActivity extends AppCompatActivity {
                 // (at the start of each round)
                     // generate new key and add to list
                         for (int i=0; i<10; i++){
-                            newKey = random.nextInt(4);
+                            newKey = random.nextInt(4)+1;
                             keyPatterns.add(newKey);
                         }
                         Log.i("playGame", "generated new key");
                     // set level # to size of list of keys
                         tvLevel.setText("Level " + String.valueOf(keyPatterns.size()));
                         tvLevel.invalidate();
+
                         Log.i("playGame", "set level");
                     //set remaining keys to size of list of keys
                         tvCountdown.setText(String.valueOf(keyPatterns.size()));
                         tvCountdown.invalidate();
                         Log.i("playGame", "set initial keys");
+
                     // disable clicking of buttons
                         for (int i=0; i<gameButtons.size(); i ++){
-                            gameButtons.get(i).setClickable(false);
+                            gameButtons.get(i).setClickable(true); // TODO: Change to false
                         }
                         Log.i("playGame", "set unclickable");
 
 
                     // TODO: animate the pattern
+                        Integer[] keyIntArray = keyPatterns.toArray(new Integer[keyPatterns.size()]);
+                        new PatternTask().execute(keyIntArray);
 
-                        for (int i=0; i<keyPatterns.size(); i++){
-                            tvCountdown.setText(String.valueOf(keyPatterns.size()-i));
-                            gameButtons.get(keyPatterns.get(i)).startAnimation(buttonBlink);
-                            tvCountdown.invalidate();
-                        }
 
                     // TODO: re-enable clicking of buttons
 
@@ -170,6 +178,46 @@ public class GameActivity extends AppCompatActivity {
                 finish();
                 break;
         }
+    }
+
+    public class PatternTask extends AsyncTask<Integer, Integer, Void> {
+
+        int i = 0;
+        Integer[] pattern;
+
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            pattern = integers;
+            while (i<pattern.length-1){
+                i++;
+                publishProgress(pattern[i]);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+
+            ivGreen.setBackground(getDrawable(R.drawable.green_game_button));
+            ivRed.setBackground(getDrawable(R.drawable.red_game_button));
+            ivYellow.setBackground(getDrawable(R.drawable.yellow_game_button));
+            ivBlue.setBackground(getDrawable(R.drawable.blue_game_button));
+
+            switch (values[0]){
+                case 1: ivGreen.setBackground(getDrawable(R.drawable.green_lit_game_button)); break;
+                case 2: ivRed.setBackground(getDrawable(R.drawable.red_lit_game_button)); break;
+                case 3: ivYellow.setBackground(getDrawable(R.drawable.yellow_lit_game_button)); break;
+                case 4: ivBlue.setBackground(getDrawable(R.drawable.blue_lit_game_button)); break;
+            }
+        }
+
+
     }
 
     @Override
