@@ -3,14 +3,20 @@ package ph.edu.dlsu.mobapde.copy_simon;
 import android.content.DialogInterface;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -39,9 +45,8 @@ public class GameActivity extends AppCompatActivity {
         playerLost = false;
 
         // TODO: get intent for game mode
-        Intent gameIntent = getIntent();
-        String gameMode = gameIntent.getExtras().getString(MainActivity.GAME_MODE);
-
+        final Intent gameIntent = getIntent();
+        final String gameMode = gameIntent.getExtras().getString(MainActivity.GAME_MODE);
 
         /*
         ivBlue.setOnTouchListener(new View.OnTouchListener() {
@@ -57,38 +62,109 @@ public class GameActivity extends AppCompatActivity {
             }
         });*/
 
+        // call playGame and pass the gameMode
 
+        ivGreen.setClickable(false);
+        ivRed.setClickable(false);
+        ivYellow.setClickable(false);
+        ivBlue.setClickable(false);
+
+        tvCountdown.setText("Start");
+        tvCountdown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playGame(gameMode);
+            }
+        });
     }
 
     public void playGame(String gameMode){
+
+        Log.i("playGame", "entered playGame");
+
+        int newKey, timeDelay, remainingKeys;
+        Random random = new Random();
+        ArrayList<Integer> keyPatterns = new ArrayList<>();
+        final ArrayList<ImageButton> gameButtons = new ArrayList<>();
+        gameButtons.add(ivGreen);
+        gameButtons.add(ivRed);
+        gameButtons.add(ivYellow);
+        gameButtons.add(ivBlue);
+        ImageButton holderButton;
+        //Handler handler = new Handler();
+
+        Log.i("playGame", "initialized variables");
+
+        playerLost = false;
+
+        //animation definition
+        Animation buttonBlink = new AlphaAnimation(1,0);
+        buttonBlink.setDuration(500);
+        buttonBlink.setInterpolator(new LinearInterpolator());
+        buttonBlink.setRepeatCount(1);
+        buttonBlink.setRepeatMode(Animation.REVERSE);
+
+
+        // green == 1, red == 2, yellow == 3, blue == 4
         switch (gameMode){
             case MainActivity.CLASSIC_MODE:
+                Log.i("playGame", "starting classic mode");
                 // TODO: loop rounds until user loses then go to high score
                 while (!playerLost){
 
-                    // (at the start of each round)
-                    // TODO: generate new key
-                    // TODO: set level # to size of list of keys
-                    // TODO: animate the pattern and disable clicking of buttons while animating
+                // (at the start of each round)
+                    // generate new key and add to list
+                        for (int i=0; i<10; i++){
+                            newKey = random.nextInt(4);
+                            keyPatterns.add(newKey);
+                        }
+                        Log.i("playGame", "generated new key");
+                    // set level # to size of list of keys
+                        tvLevel.setText("Level " + String.valueOf(keyPatterns.size()));
+                        tvLevel.invalidate();
+                        Log.i("playGame", "set level");
+                    //set remaining keys to size of list of keys
+                        tvCountdown.setText(String.valueOf(keyPatterns.size()));
+                        tvCountdown.invalidate();
+                        Log.i("playGame", "set initial keys");
+                    // disable clicking of buttons
+                        for (int i=0; i<gameButtons.size(); i ++){
+                            gameButtons.get(i).setClickable(false);
+                        }
+                        Log.i("playGame", "set unclickable");
 
 
-                /*    Random random = new Random();
+                    // TODO: animate the pattern
 
-                    ArrayList<Integer> arrayList = new ArrayList<Integer>();
+                        for (int i=0; i<keyPatterns.size(); i++){
+                            tvCountdown.setText(String.valueOf(keyPatterns.size()-i));
+                            gameButtons.get(keyPatterns.get(i)).startAnimation(buttonBlink);
+                            tvCountdown.invalidate();
+                        }
 
-                    *//*for (i = 0; i < 50; i++) {
-                        n = random.nextInt(4) + 1;
-                        arrayList.add(i, n);
-                        Log.i("BOOM", arrayList.get(i).toString());
-                    }*/
+                    // TODO: re-enable clicking of buttons
+
+                        for (int i=0; i<gameButtons.size(); i ++){
+                            gameButtons.get(i).setClickable(true);
+                        }
+                        Log.i("playGame", "set clickable");
+
+                    // TODO: if user pressed wrong button: lose
+                        if(true){
+                            playerLost = true;
+                        }
+                        Log.i("playGame", "player has lost");
                 }
                 break;
-            case MainActivity.COOP_MODE:
-                break;
-            case MainActivity.SPEED_MODE:
-                break;
+            /*case MainActivity.SPEED_MODE:
+                break;*/
+            /*case MainActivity.COOP_MODE:
+                break;*/
             default:
                 // invalid/unreleased game mode; notify and return to main activity
+                Log.i("playGame", "invalid/unreleased game mode");
+                Toast invalidModeToast = new Toast(getBaseContext());
+                invalidModeToast.setText("Invalid//unreleased game mode");
                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(intent);
                 finish();

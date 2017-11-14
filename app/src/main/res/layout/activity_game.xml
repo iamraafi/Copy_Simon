@@ -16,6 +16,7 @@
         android:layout_margin="20dp"
         android:layout_centerHorizontal="true"/>
 
+
     <TextView
         android:id="@+id/tv_countdown"
         android:layout_width="wrap_content"
@@ -28,7 +29,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:gravity="center">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +41,7 @@
                 android:id="@+id/iv_green"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:background="@drawable/green_button_selector"/>
+                android:background="@drawable/green_button_selector" />
             <ImageButton
                 android:id="@+id/iv_red"
                 android:layout_width="150dp"
