@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
 
     public final static String GAME_MODE = "gameMode";
     public final static String CLASSIC_MODE = "classic";
+    public final static String SPEED_MODE = "speed";
+    public final static String COOP_MODE = "coop";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

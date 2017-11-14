@@ -38,7 +38,7 @@
                 android:id="@+id/iv_green"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:background="@drawable/green_button_selector" />
+                android:background="@drawable/green_button_selector"/>
             <ImageButton
                 android:id="@+id/iv_red"
                 android:layout_width="150dp"
