@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String SCHEMA="appdb";
-    public static final int VERSION=1;
+    public static final int VERSION=2;
     public DatabaseHelper(Context context){
         super(context,SCHEMA,null,VERSION);
     }
@@ -100,9 +100,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.close();
         return s;
     }
-    public int getLowest(){
+    public int getLowest(String gamemode){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT Min("+Score.COLUMN_POINTS+")'min' FROM "+Score.TABLE_NAME,null);
+        Cursor c = db.rawQuery("SELECT Min("+Score.COLUMN_POINTS+")'min' FROM "+gamemode,null);
         int s=0 ;
         if(c.moveToFirst()){
             s = c.getInt(c.getColumnIndex("min"));

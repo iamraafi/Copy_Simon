@@ -225,6 +225,7 @@ public class GameActivity extends AppCompatActivity {
                     Log.i("playGame", "C Timer Finished");
                     Intent intent = new Intent(getBaseContext(), PostGameActivity.class);
                     intent.putExtra("Score",(totalCount+LevelCount));
+                    intent.putExtra(MainActivity.GAME_MODE, gameMode);
                     startActivity(intent);
                     finish();
                 }
@@ -241,6 +242,7 @@ public class GameActivity extends AppCompatActivity {
                     Log.i("playGame", "C Timer Finished");
                     Intent intent = new Intent(getBaseContext(), PostGameActivity.class);
                     intent.putExtra("Score",(totalCount+LevelCount));
+                    intent.putExtra(MainActivity.GAME_MODE, gameMode);
                     startActivity(intent);
                     finish();
                 }
@@ -257,6 +259,7 @@ public class GameActivity extends AppCompatActivity {
                     Log.i("playGame", "C Timer Finished");
                     Intent intent = new Intent(getBaseContext(), PostGameActivity.class);
                     intent.putExtra("Score",(totalCount+LevelCount));
+                    intent.putExtra(MainActivity.GAME_MODE, gameMode);
                     startActivity(intent);
                     finish();
                 }
@@ -273,6 +276,7 @@ public class GameActivity extends AppCompatActivity {
                     Log.i("playGame", "C Timer Finished");
                     Intent intent = new Intent(getBaseContext(), PostGameActivity.class);
                     intent.putExtra("Score",(totalCount+LevelCount));
+                    intent.putExtra(MainActivity.GAME_MODE, gameMode);
                     startActivity(intent);
                     finish();
                 }
@@ -289,6 +293,7 @@ public class GameActivity extends AppCompatActivity {
                     Log.i("playGame", "C Timer Finished");
                     Intent intent = new Intent(getBaseContext(), PostGameActivity.class);
                     intent.putExtra("Score",(totalCount+LevelCount));
+                    intent.putExtra(MainActivity.GAME_MODE, gameMode);
                     startActivity(intent);
                     finish();
                 }

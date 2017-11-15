@@ -17,6 +17,7 @@ public class PostGameActivity extends AppCompatActivity {
     TextView tvScore, tvHighest;
     ImageView ivHighScores, ivPlay, ivHome;
     EditText etDialogHighScoreName;
+    String table;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class PostGameActivity extends AppCompatActivity {
         final int score = i.getExtras().getInt("Score");
         final String gamemode = i.getExtras().getString(MainActivity.GAME_MODE);
         tvScore.setText(""+score);
-        String table;
+        //String table;
         if (gamemode.equals(MainActivity.CLASSIC_MODE)){
             table = Score.TABLE_NAME;
         }
@@ -56,7 +57,7 @@ public class PostGameActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String name = etDialogHighScoreName.getText().toString();
-                        dbhelper.addScore(new Score(name, score), MainActivity.CLASSIC_MODE);
+                        dbhelper.addScore(new Score(name, score), table);
                     }
                 });
         AlertDialog newHighScore = builder.create();
@@ -74,7 +75,7 @@ public class PostGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), GameActivity.class);
-                intent.putExtra(MainActivity.GAME_MODE, MainActivity.CLASSIC_MODE);
+                intent.putExtra(MainActivity.GAME_MODE,gamemode);
 
                 startActivity(intent);
                 finish();
@@ -88,8 +89,8 @@ public class PostGameActivity extends AppCompatActivity {
             }
         });
 
-        Log.i("postGame", "score " + dbhelper.getLowest());
-        if(score > dbhelper.getLowest()){
+        Log.i("postGame", "score " + dbhelper.getLowest(table));
+        if(score > dbhelper.getLowest(table)){
             newHighScore.show();
         }
 
