@@ -24,7 +24,7 @@ public class GameActivity extends AppCompatActivity {
     TextView tvLevel, tvCountdown;
     Random random = new Random();
     ImageButton ivGreen, ivRed, ivYellow, ivBlue;
-    Boolean playerLost;
+    Boolean playerLost, isMuted;
     MediaPlayer g1, c2, e2, g2;
 
     @Override
@@ -42,16 +42,33 @@ public class GameActivity extends AppCompatActivity {
         ivYellow = findViewById(R.id.iv_yellow);
         ivBlue = findViewById(R.id.iv_blue);
 
-        g1 = MediaPlayer.create(this, R.raw.g1);
-        c2 = MediaPlayer.create(this, R.raw.c2);
-        e2 = MediaPlayer.create(this, R.raw.e2);
-        g2 = MediaPlayer.create(this, R.raw.g2);
+
 
         playerLost = false;
 
         // TODO: get intent for game mode
         Intent gameIntent = getIntent();
         gameMode = gameIntent.getExtras().getString(MainActivity.GAME_MODE);
+        isMuted = gameIntent.getExtras().getBoolean(MainActivity.SOUND_STATE);
+
+            g1 = MediaPlayer.create(this, R.raw.g1);
+            c2 = MediaPlayer.create(this, R.raw.c2);
+            e2 = MediaPlayer.create(this, R.raw.e2);
+            g2 = MediaPlayer.create(this, R.raw.g2);
+
+        if (isMuted){ // if muted, set volumes to 0
+            g1.setVolume(0,0);
+            c2.setVolume(0,0);
+            e2.setVolume(0,0);
+            g2.setVolume(0,0);
+        } else { // if not muted, set volumes to 1
+            g1.setVolume(1,1);
+            c2.setVolume(1,1);
+            e2.setVolume(1,1);
+            g2.setVolume(1,1);
+        }
+
+
 
         /*
         ivBlue.setOnTouchListener(new View.OnTouchListener() {
@@ -386,6 +403,11 @@ public class GameActivity extends AppCompatActivity {
             pattern = integers;
             delayArray = new Integer[1];
             delayArray[0] = 5;
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             while (i<pattern.length-1){
                 if(!delayCheck){
                     i++;

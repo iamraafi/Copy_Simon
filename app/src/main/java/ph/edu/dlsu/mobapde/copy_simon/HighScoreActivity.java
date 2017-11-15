@@ -23,16 +23,6 @@ public class HighScoreActivity extends AppCompatActivity {
         String in=shp.getString("initialized",null);
         if(in!=null)
             return;
-        dbhelper.addScore(new Score("Tom",100));
-        dbhelper.addScore(new Score("Jake",90));
-        dbhelper.addScore(new Score("Hassan",80));
-        dbhelper.addScore(new Score("Ching",70));
-        dbhelper.addScore(new Score("Cho",60));
-        dbhelper.addScore(new Score("Hans",50));
-        dbhelper.addScore(new Score("Nick",40));
-        dbhelper.addScore(new Score("Juan",30));
-        dbhelper.addScore(new Score("Samael",20));
-        dbhelper.addScore(new Score("Jamal",15));
 
         dbhelper.addScore(new Score("Samantha",150));
         dbhelper.addScore(new Score("Jason",90));

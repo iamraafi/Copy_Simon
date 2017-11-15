@@ -1,6 +1,9 @@
 package ph.edu.dlsu.mobapde.copy_simon;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +19,11 @@ public class MainActivity extends AppCompatActivity {
     public final static String CLASSIC_MODE = "classic";
     public final static String SPEED_MODE = "speed";
     public final static String COOP_MODE = "coop";
+    public final static String SOUND_STATE = "soundState";
 
+    //public AudioManager audioManager;
+
+    private boolean isMuted;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +36,16 @@ public class MainActivity extends AppCompatActivity {
         ivHelp = findViewById(R.id.iv_help);
         ivSettings = findViewById(R.id.iv_settings);
 
+        //audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        isMuted = false;
+
         // let user play TODO: allow other modes
         buttonClassic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), GameActivity.class);
                 intent.putExtra(GAME_MODE, CLASSIC_MODE);
+                intent.putExtra(SOUND_STATE, isMuted);
 
                 startActivity(intent);
             }
@@ -44,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), GameActivity.class);
                 intent.putExtra(GAME_MODE, SPEED_MODE);
+                intent.putExtra(SOUND_STATE, isMuted);
 
                 startActivity(intent);
             }
@@ -54,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), HighScoreActivity.class);
-
                 startActivity(intent);
             }
         });
@@ -69,8 +80,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // TODO: turn on/off sounds
-
-
+        ivSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isMuted){
+                    //audioManager.setMode(AudioManager.ADJUST_MUTE);
+                    ivSettings.setImageResource(R.drawable.muted_sound_button);
+                    isMuted=true;
+                } else{
+                    //audioManager.setMode(AudioManager.ADJUST_UNMUTE);
+                    ivSettings.setImageResource(R.drawable.sound_button);
+                    isMuted=false;
+                }
+            }
+        });
 
     }
+
 }
