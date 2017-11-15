@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), HighScoreActivity.class);
-
+                intent.putExtra("Mode",CLASSIC_MODE);
                 startActivity(intent);
             }
         });

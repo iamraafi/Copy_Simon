@@ -25,12 +25,14 @@ public class PostGameActivity extends AppCompatActivity {
         DatabaseHelper dbhelper=new DatabaseHelper(getBaseContext());
         Intent i = getIntent();
         int score = i.getExtras().getInt("Score");
+        final String gamemode = i.getExtras().getString(MainActivity.GAME_MODE);
         tvScore.setText(""+score);
-        tvHighest.setText(""+dbhelper.getHighest());
+        tvHighest.setText(""+dbhelper.getHighest(gamemode+"Highscore"));
         ivHighScores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), HighScoreActivity.class);
+                intent.putExtra("Mode",gamemode);
                 startActivity(intent);
             }
         });
