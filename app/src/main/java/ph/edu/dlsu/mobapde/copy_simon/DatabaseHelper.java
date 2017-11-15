@@ -92,6 +92,17 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.close();
         return s;
     }
+    public int getLowest(){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT Min("+Score.COLUMN_POINTS+")'min' FROM "+Score.TABLE_NAME,null);
+        int s=0 ;
+        if(c.moveToFirst()){
+            s = c.getInt(c.getColumnIndex("min"));
+        }
+        c.close();
+        db.close();
+        return s;
+    }
     public Score getScore(long id){
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(Score.TABLE_NAME,
