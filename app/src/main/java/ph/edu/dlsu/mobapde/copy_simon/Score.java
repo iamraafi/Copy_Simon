@@ -7,8 +7,9 @@ package ph.edu.dlsu.mobapde.copy_simon;
 public class Score {
     public static final String EXTRA_ID = "id";
     public static final String EXTRA_TOADD = "add";
+    public static final String TABLE_NAME2="speedHighscore";
+    public static final String TABLE_NAME="classicHighscore";
 
-    public static final String TABLE_NAME="highscores";
     public static final String COLUMN_ID="_id";
     public static final String COLUMN_NAME="name";
     public static final String COLUMN_POINTS="points";

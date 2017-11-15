@@ -28,11 +28,12 @@ public class PostGameActivity extends AppCompatActivity {
         ivHighScores = findViewById(R.id.iv_highscores);
         ivPlay = findViewById(R.id.iv_play);
         ivHome = findViewById(R.id.iv_home);
-        final DatabaseHelper dbhelper=new DatabaseHelper(getBaseContext());
+        DatabaseHelper dbhelper=new DatabaseHelper(getBaseContext());
         Intent i = getIntent();
-        final int score = i.getExtras().getInt("Score");
+        int score = i.getExtras().getInt("Score");
+        final String gamemode = i.getExtras().getString(MainActivity.GAME_MODE);
         tvScore.setText(""+score);
-        tvHighest.setText(""+dbhelper.getHighest());
+        tvHighest.setText(""+dbhelper.getHighest(gamemode+"Highscore"));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.LightDialogTheme);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -55,6 +56,7 @@ public class PostGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), HighScoreActivity.class);
+                intent.putExtra("Mode",gamemode);
                 startActivity(intent);
             }
         });

@@ -24,33 +24,41 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 + Score.COLUMN_NAME + " TEXT,"
                 + Score.COLUMN_POINTS + " INTEGER"
                 + ");";
+        String sql2 = "CREATE TABLE " + Score.TABLE_NAME2 + " ("
+                + Score.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + Score.COLUMN_NAME + " TEXT,"
+                + Score.COLUMN_POINTS + " INTEGER"
+                + ");";
         sqLiteDatabase.execSQL(sql);
+        sqLiteDatabase.execSQL(sql2);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         String sql = "DROP TABLE IF EXISTS " + Score.TABLE_NAME + ";";
+        String sql2 = "DROP TABLE IF EXISTS " + Score.TABLE_NAME2 + ";";
         sqLiteDatabase.execSQL(sql);
+        sqLiteDatabase.execSQL(sql2);
         // call onCreate
         onCreate(sqLiteDatabase);
     }
-    private boolean cleanup(){
-        if(getCount()>10){
+    private boolean cleanup(String gameMode){
+        if(getCount(gameMode)>10){
             SQLiteDatabase db=this.getWritableDatabase();
-            Cursor c = db.rawQuery("SELECT max("+Score.COLUMN_ID+")'max' FROM "+Score.TABLE_NAME,null);
+            Cursor c = db.rawQuery("SELECT max("+Score.COLUMN_ID+")'max' FROM "+gameMode,null);
             int s=0 ;
             if(c.moveToFirst()){
                 s = c.getInt(c.getColumnIndex("max"));
             }
             c.close();
-            int rowsAffected=db.delete(Score.TABLE_NAME,Score.COLUMN_ID+"=?",new String[]{s+""});
+            int rowsAffected=db.delete(gameMode,Score.COLUMN_ID+"=?",new String[]{s+""});
             db.close();
             return rowsAffected>0;
         }
         return true;
     }
-    private Score shiftScore(Score score,Score original){
+    private Score shiftScore(Score score,Score original,String gameMode){
         if(original.getPoints()>=score.getPoints())
             return score;
         else{
@@ -58,7 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             ContentValues cv = new ContentValues();
             cv.put(Score.COLUMN_NAME,score.getName());
             cv.put(Score.COLUMN_POINTS,score.getPoints());
-            db.update(Score.TABLE_NAME,cv,
+            db.update(gameMode,cv,
                     Score.COLUMN_ID+"=?",
                     new String[]{original.getId()+""});
             db.close();
@@ -67,23 +75,23 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     }
 
-    public long addScore(Score score){
-        ArrayList<Score> slist=getScoresList();
+    public long addScore(Score score,String gameMode){
+        ArrayList<Score> slist=getScoresList(gameMode);
         for(Score curr:slist){
-            score=shiftScore(score,curr);
+            score=shiftScore(score,curr,gameMode);
         }
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(Score.COLUMN_NAME,score.getName());
         cv.put(Score.COLUMN_POINTS,score.getPoints());
-        long id=db.insert(Score.TABLE_NAME,null,cv);
+        long id=db.insert(gameMode,null,cv);
         db.close();
-        cleanup();
+        cleanup(gameMode);
         return id;
     }
-    public int getHighest(){
+    public int getHighest(String gameMode){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT Max("+Score.COLUMN_POINTS+")'max' FROM "+Score.TABLE_NAME,null);
+        Cursor c = db.rawQuery("SELECT Max("+Score.COLUMN_POINTS+")'max' FROM "+gameMode,null);
         int s=0 ;
         if(c.moveToFirst()){
             s = c.getInt(c.getColumnIndex("max"));
@@ -103,9 +111,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.close();
         return s;
     }
-    public Score getScore(long id){
+
+
+    public Score getScore(long id,String gameMode){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.query(Score.TABLE_NAME,
+        Cursor c = db.query(gameMode,
                 null,
                 Score.COLUMN_ID + "=?",
                 new String[]{ id+"" },
@@ -123,9 +133,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         return s;
     }
-    public int getCount(){
+    public int getCount(String gameMode){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT COUNT(*)'count' FROM "+Score.TABLE_NAME,null);
+        Cursor c = db.rawQuery("SELECT COUNT(*)'count' FROM "+gameMode,null);
         int s=0 ;
         if(c.moveToFirst()){
             s = c.getInt(c.getColumnIndex("count"));
@@ -134,10 +144,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.close();
         return s;
     }
-    private ArrayList<Score> getScoresList(){
+    private ArrayList<Score> getScoresList(String gameMode){
         ArrayList<Score> slist=new ArrayList<Score>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.query(Score.TABLE_NAME,
+        Cursor c = db.query(gameMode,
                 null,
                 null,
                 null,
@@ -168,7 +178,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
     // getAllKoreans
-    public Cursor getAllScoresCursor(){
-        return getReadableDatabase().query(Score.TABLE_NAME, null,null,null,null,null,null);
+    public Cursor getAllScoresCursor(String gameMode){
+        return getReadableDatabase().query(gameMode, null,null,null,null,null,null);
     }
 }

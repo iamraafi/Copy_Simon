@@ -18,10 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HighScoreActivity"/>
+        <activity android:name=".HighScoreActivity" />
         <activity android:name=".GameActivity" />
         <activity android:name=".InstructionsActivity" />
-        <activity android:name=".PostGameActivity"/>
+        <activity android:name=".PostGameActivity" />
+        <activity
+            android:name=".Temp"
+            android:label="@string/title_activity_temp"></activity>
     </application>
 
 </manifest>
