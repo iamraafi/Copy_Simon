@@ -19,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sql = "CREATE TABLE " + Score.TABLE_NAME + " ("
+        String sql = "CREATE TABLE " + Score.TABLE_NAME + "("
                 + Score.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + Score.COLUMN_NAME + " TEXT,"
                 + Score.COLUMN_POINTS + " INTEGER"

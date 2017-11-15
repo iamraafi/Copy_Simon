@@ -49,6 +49,7 @@ public class GameActivity extends AppCompatActivity {
         // TODO: get intent for game mode
         Intent gameIntent = getIntent();
         gameMode = gameIntent.getExtras().getString(MainActivity.GAME_MODE);
+        Log.i("GameActivity", gameMode);
         isMuted = gameIntent.getExtras().getBoolean(MainActivity.SOUND_STATE);
 
             g1 = MediaPlayer.create(this, R.raw.g1);

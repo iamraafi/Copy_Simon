@@ -28,12 +28,21 @@ public class PostGameActivity extends AppCompatActivity {
         ivHighScores = findViewById(R.id.iv_highscores);
         ivPlay = findViewById(R.id.iv_play);
         ivHome = findViewById(R.id.iv_home);
-        DatabaseHelper dbhelper=new DatabaseHelper(getBaseContext());
+        final DatabaseHelper dbhelper=new DatabaseHelper(getBaseContext());
         Intent i = getIntent();
-        int score = i.getExtras().getInt("Score");
+        final int score = i.getExtras().getInt("Score");
         final String gamemode = i.getExtras().getString(MainActivity.GAME_MODE);
         tvScore.setText(""+score);
-        tvHighest.setText(""+dbhelper.getHighest(gamemode+"Highscore"));
+        String table;
+        if (gamemode.equals(MainActivity.CLASSIC_MODE)){
+            table = Score.TABLE_NAME;
+        }
+        else  if (gamemode.equals(MainActivity.SPEED_MODE)){
+            table = Score.TABLE_NAME2;
+        } else {
+            table = "no table given";
+        }
+        tvHighest.setText(""+dbhelper.getHighest(table));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.LightDialogTheme);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -47,7 +56,7 @@ public class PostGameActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String name = etDialogHighScoreName.getText().toString();
-                        dbhelper.addScore(new Score(name, score));
+                        dbhelper.addScore(new Score(name, score), MainActivity.CLASSIC_MODE);
                     }
                 });
         AlertDialog newHighScore = builder.create();
@@ -85,4 +94,5 @@ public class PostGameActivity extends AppCompatActivity {
         }
 
     }
+
 }
