@@ -9,6 +9,10 @@
 
     <TextView
         android:id="@+id/tv_level"
+<<<<<<< HEAD
+=======
+        android:text="Level #"
+>>>>>>> parent of 35151cc... has counter timer not fully working
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
