@@ -89,7 +89,7 @@ public class PostGameActivity extends AppCompatActivity {
             }
         });
 
-        Log.i("postGame", "score " + dbhelper.getLowest(table));
+        Log.i("postGame", "lowest score " + dbhelper.getLowest(table));
         if(score > dbhelper.getLowest(table)){
             newHighScore.show();
         }

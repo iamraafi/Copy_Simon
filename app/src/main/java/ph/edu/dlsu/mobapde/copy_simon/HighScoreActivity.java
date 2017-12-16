@@ -99,10 +99,13 @@ public class HighScoreActivity extends AppCompatActivity {
         chs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                shs.setText("SPEED");
-                chs.setPaintFlags(chs.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 chs.setText("CLASSIC");
+                chs.setPaintFlags(chs.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                chs.setBackgroundResource(R.drawable.green_button);
+                shs.setText("SPEED");
                 shs.setPaintFlags(chs.getPaintFlags() & (~ Paint.UNDERLINE_TEXT_FLAG));
+                shs.setBackgroundResource(R.drawable.yellow_button_off);
+
                 sa=new ScoreAdapter(getBaseContext(),
                         dbhelper.getAllScoresCursor("classicHighscore"));
                 rvScore.setAdapter(sa);
@@ -112,10 +115,12 @@ public class HighScoreActivity extends AppCompatActivity {
         shs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                shs.setPaintFlags(chs.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 shs.setText("SPEED");
+                shs.setPaintFlags(chs.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                shs.setBackgroundResource(R.drawable.yellow_button);
                 chs.setText("CLASSIC");
                 chs.setPaintFlags(chs.getPaintFlags() & (~ Paint.UNDERLINE_TEXT_FLAG));
+                chs.setBackgroundResource(R.drawable.green_button_off);
                 sa=new ScoreAdapter(getBaseContext(),
                         dbhelper.getAllScoresCursor("speedHighscore"));
                 rvScore.setAdapter(sa);

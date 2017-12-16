@@ -26,6 +26,7 @@ public class GameActivity extends AppCompatActivity {
     ImageButton ivGreen, ivRed, ivYellow, ivBlue;
     Boolean playerLost, isMuted;
     MediaPlayer g1, c2, e2, g2;
+    MediaPlayer mediaController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 g1.start();
+
                 if (gameMode.equals("speed"))
                     ct.cancel();
                 if(Key_Pattern.get(LevelCount+1)==1){
@@ -112,6 +114,7 @@ public class GameActivity extends AppCompatActivity {
                 }
             }
         });
+
 
         ivRed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +142,7 @@ public class GameActivity extends AppCompatActivity {
                 }
             }
         });
+
 
         ivYellow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -399,6 +403,8 @@ public class GameActivity extends AppCompatActivity {
         boolean delayCheck = false;
         Integer[] pattern, delayArray;
 
+
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -448,6 +454,8 @@ public class GameActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
+
+
 
 
             switch (values[0]){
