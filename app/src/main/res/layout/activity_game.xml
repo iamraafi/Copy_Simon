@@ -10,6 +10,10 @@
     <TextView
         android:id="@+id/tv_level"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        android:text="Level #"
+>>>>>>> parent of 35151cc... has counter timer not fully working
 =======
         android:text="Level #"
 >>>>>>> parent of 35151cc... has counter timer not fully working
