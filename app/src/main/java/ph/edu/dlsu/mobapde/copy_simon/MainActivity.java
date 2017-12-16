@@ -60,6 +60,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        buttonCoop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), MultiplayerActivity.class);
+                intent.putExtra(GAME_MODE, COOP_MODE);
+                intent.putExtra(SOUND_STATE, isMuted);
+                startActivity(intent);
+            }
+        });
 
         // view High scores
         ivHighScores.setOnClickListener(new View.OnClickListener() {
