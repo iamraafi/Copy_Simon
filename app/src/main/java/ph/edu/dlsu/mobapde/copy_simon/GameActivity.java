@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -99,6 +100,10 @@ public class GameActivity extends AppCompatActivity {
                     LevelCount++;
                     tvCountdown.setText(""+(Key_Pattern.size()-(LevelCount+1)));
                     tvCountdown.invalidate();
+                    if(gameMode.equals("classic")) {
+                        tvLevel.setText("Score " + (totalCount + LevelCount));
+                        tvLevel.invalidate();
+                    }
                     if((LevelCount+1)==Key_Pattern.size())
                         levelup();
                     else if (gameMode.equals("speed"))
@@ -127,6 +132,11 @@ public class GameActivity extends AppCompatActivity {
                     LevelCount++;
                     tvCountdown.setText(""+(Key_Pattern.size()-(LevelCount+1)));
                     tvCountdown.invalidate();
+
+                    if(gameMode.equals("classic")) {
+                        tvLevel.setText("Score " + (totalCount + LevelCount));
+                        tvLevel.invalidate();
+                    }
                     if((LevelCount+1)==Key_Pattern.size())
                         levelup();
                     else if (gameMode.equals("speed"))
@@ -155,6 +165,11 @@ public class GameActivity extends AppCompatActivity {
                     LevelCount++;
                     tvCountdown.setText(""+(Key_Pattern.size()-(LevelCount+1)));
                     tvCountdown.invalidate();
+
+                    if(gameMode.equals("classic")) {
+                        tvLevel.setText("Score " + (totalCount + LevelCount));
+                        tvLevel.invalidate();
+                    }
                     if((LevelCount+1)==Key_Pattern.size())
                         levelup();
                     else if (gameMode.equals("speed"))
@@ -183,6 +198,11 @@ public class GameActivity extends AppCompatActivity {
 
                     tvCountdown.setText(""+(Key_Pattern.size()-(LevelCount+1)));
                     tvCountdown.invalidate();
+
+                    if(gameMode.equals("classic")) {
+                        tvLevel.setText("Score " + (totalCount + LevelCount));
+                        tvLevel.invalidate();
+                    }
                     if((LevelCount+1)==Key_Pattern.size())
                         levelup();
                     else if (gameMode.equals("speed"))
@@ -208,6 +228,8 @@ public class GameActivity extends AppCompatActivity {
         Key_Pattern.add(5);
 
         tvCountdown.setText("Start");
+        tvLevel.setText("Score 0");
+        tvLevel.invalidate();
         tvCountdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -218,9 +240,12 @@ public class GameActivity extends AppCompatActivity {
     }
     public void setTimer(int level){
         if(level<=4){
-            ct=new CountDownTimer(3000,1000) {
+            ct=new CountDownTimer(3000,100) {
                 @Override
                 public void onTick(long l) {
+                    double timeleft=l/1000;
+                    tvLevel.setText("Time Left " + new DecimalFormat("##.##").format(timeleft)+"s");
+                    tvLevel.invalidate();
                     Log.i("playGame", "C Timer"+l);
                 }
 
@@ -235,9 +260,12 @@ public class GameActivity extends AppCompatActivity {
                 }
             };
         }else if (level<=8){
-            ct=new CountDownTimer(2000,1000) {
+            ct=new CountDownTimer(2000,100) {
                 @Override
                 public void onTick(long l) {
+                    double timeleft=l/1000;
+                    tvLevel.setText("Time Left " + new DecimalFormat("##.##").format(timeleft)+"s");
+                    tvLevel.invalidate();
                     Log.i("playGame", "C Timer"+l);
                 }
 
@@ -252,9 +280,12 @@ public class GameActivity extends AppCompatActivity {
                 }
             };
         }else if(level<=11){
-            ct=new CountDownTimer(1000,1000) {
+            ct=new CountDownTimer(1000,100) {
                 @Override
                 public void onTick(long l) {
+                    double timeleft=l/1000;
+                    tvLevel.setText("Time Left " + new DecimalFormat("##.##").format(timeleft)+"s");
+                    tvLevel.invalidate();
                     Log.i("playGame", "C Timer"+l);
                 }
 
@@ -269,9 +300,12 @@ public class GameActivity extends AppCompatActivity {
                 }
             };
         }else if(level<=14){
-            ct=new CountDownTimer(500,1000) {
+            ct=new CountDownTimer(500,100) {
                 @Override
                 public void onTick(long l) {
+                    double timeleft=l/1000;
+                    tvLevel.setText("Time Left " + new DecimalFormat("##.##").format(timeleft)+"s");
+                    tvLevel.invalidate();
                     Log.i("playGame", "C Timer"+l);
                 }
 
@@ -286,9 +320,12 @@ public class GameActivity extends AppCompatActivity {
                 }
             };
         }else{
-            ct=new CountDownTimer(200,1000) {
+            ct=new CountDownTimer(200,100) {
                 @Override
                 public void onTick(long l) {
+                    double timeleft=l/1000;
+                    tvLevel.setText("Time Left " + new DecimalFormat("##.##").format(timeleft)+"s");
+                    tvLevel.invalidate();
                     Log.i("playGame", "C Timer"+l);
                 }
 
@@ -309,8 +346,8 @@ public class GameActivity extends AppCompatActivity {
         int newkey=random.nextInt(4)+1;
         Key_Pattern.add(newkey);
         int level = Key_Pattern.size()-1;
-        tvLevel.setText("Level " + level);
-        tvLevel.invalidate();
+        //tvLevel.setText("Level " + level);
+        //tvLevel.invalidate();
         tvCountdown.setText(String.valueOf(level));
         tvCountdown.invalidate();
         LevelCount=0;
